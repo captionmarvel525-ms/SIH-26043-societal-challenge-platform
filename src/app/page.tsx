@@ -1,69 +1,80 @@
-import Image from "next/image";
+import Link from "next/link";
+import LiveCounters from "@/components/live-counters";
+import RecentReports from "@/components/recent-reports";
+import { T } from "@/components/t";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div id="page-home" className="space-y-8">
+      {/* Hero */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[var(--card)] via-[var(--card)] to-[var(--secondary)] border border-[var(--border)] p-6 sm:p-10 shadow-sm">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 mb-4">
+          <span>⚡</span> <T k="home.heroBadge" />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+        <h1 className="text-3xl sm:text-5xl font-black tracking-tight mb-4 leading-tight">
+          <T k="home.h1a" />{" "}
+          <span className="text-[#0B5345] dark:text-emerald-400">
+            <T k="home.h1b" />
+          </span>
+        </h1>
+        <p className="text-sm sm:text-base text-[var(--muted-foreground)] max-w-3xl leading-relaxed mb-6 font-medium">
+          <T k="home.hero.p1" />
+        </p>
+        <div className="flex flex-wrap gap-3">
+          <Link
+            href="/report"
+            className="bg-[#0B5345] hover:bg-[#073B31] text-white text-sm font-bold px-5 py-3 rounded-xl shadow-md flex items-center gap-2"
           >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            <span>✍️</span> <T k="home.ctaReport" />
+          </Link>
+          <Link
+            href="/challenges"
+            className="border border-[var(--border)] hover:bg-[var(--secondary)] text-sm font-bold px-5 py-3 rounded-xl flex items-center gap-2"
           >
-            Documentation
-          </a>
+            <span>🔍</span> <T k="home.ctaBrowse" />
+          </Link>
+          <Link
+            href="/map"
+            className="border border-[var(--border)] hover:bg-[var(--secondary)] text-sm font-bold px-5 py-3 rounded-xl flex items-center gap-2"
+          >
+            <span>🗺️</span> <T k="home.ctaMap" />
+          </Link>
         </div>
-      </main>
+      </div>
+
+      {/* Live Counters Bar */}
+      <LiveCounters />
+
+      {/* 4-Stage Resolution Pipeline */}
+      <div className="bg-[var(--card)] border border-[var(--border)] rounded-2xl p-6 sm:p-8">
+        <h2 className="text-xl font-black mb-1">
+          <T k="home.pipeline.h2" />
+        </h2>
+        <p className="text-xs sm:text-sm text-[var(--muted-foreground)] mb-6">
+          <T k="home.pipeline.p" />
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {[1, 2, 3, 4].map((n) => (
+            <div
+              key={n}
+              className="bg-[var(--secondary)]/50 rounded-xl p-4 border border-[var(--border)]"
+            >
+              <div className="w-8 h-8 rounded-full bg-[#0B5345] text-white flex items-center justify-center font-black text-xs mb-3">
+                {n}
+              </div>
+              <h3 className="font-bold text-sm mb-1">
+                <T k={`home.step${n}.title`} />
+              </h3>
+              <p className="text-xs text-[var(--muted-foreground)]">
+                <T k={`home.step${n}.body`} />
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Recent 6 Reports */}
+      <RecentReports />
     </div>
   );
 }
